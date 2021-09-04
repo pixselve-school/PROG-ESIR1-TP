@@ -122,7 +122,6 @@ public class TestUnitaireInsertion
     tester_egalite(lesRationnels, resu, numerateurs.length);
     System.out.println("test réussi");
   }
-
   @Test(timeout=20)
   public void inserer_fin()
   {

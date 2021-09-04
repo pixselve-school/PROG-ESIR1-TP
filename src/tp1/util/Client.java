@@ -3,6 +3,7 @@ package tp1.util;
 import tp1.rationnel.RationnelSimple;
 import tp1.types.Rationnel;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Client {
@@ -20,13 +21,29 @@ public class Client {
     public static void main(String[] args) {
         Rationnel currentR;
         Rationnel previousR = new RationnelSimple(0, 1);
+        Rationnel[] rationnels = new Rationnel[100];
+        int rationnelsCount = 0;
         do {
+//            Ask the user
             currentR = lireRationnel(new Scanner(System.in));
             if (currentR.getNumerateur() == 0) break;
+
+            insererRationnel(currentR, rationnels, rationnelsCount);
+            rationnelsCount++;
+
+//            Sum
             System.out.println(currentR);
-            System.out.println(currentR + " + " + previousR + " = 0 " + currentR.somme(previousR).toString());
+            final Rationnel somme = currentR.somme(previousR);
+            System.out.println(currentR + " + " + previousR + " = 0 " + somme.toString());
+
+            insererRationnel(somme, rationnels, rationnelsCount);
+            rationnelsCount++;
+
             if (currentR.getNumerateur() != 0) {
-                System.out.println("🔄 L'inverse de " + currentR + " est: " + currentR.inverse());
+                final Rationnel inverse = currentR.inverse();
+                System.out.println("🔄 L'inverse de " + currentR + " est: " + inverse);
+                insererRationnel(inverse, rationnels, rationnelsCount);
+                rationnelsCount++;
             } else {
                 System.out.println("❌ Inverse impossible");
             }
@@ -40,6 +57,10 @@ public class Client {
                 System.out.println(currentR + " < " + previousR);
             }
             System.out.println(currentR.equals(previousR) ? currentR + " = " + previousR : currentR + " != " + previousR);
+
+            System.out.println(Arrays.toString(rationnels));
+            System.out.println(sommeRationnels(rationnels, rationnelsCount));
+            previousR = currentR;
         } while (true);
     }
 
@@ -61,26 +82,20 @@ public class Client {
      * @param nb            : le nombre de rationnel dans le tableau
      */
     static void insererRationnel(Rationnel nouveau, Rationnel[] lesRationnels, int nb) {
-        for (int i = 0; i < lesRationnels.length; i++) {
-            
+        assert nb < lesRationnels.length;
+        int index = 0;
+        for (int i = 0; i <= nb; i++) {
+            if (i == nb || nouveau.compareTo(lesRationnels[i]) < 0) {
+                index = i;
+                break;
+            }
         }
-
-
-
-        Rationnel[] result = new Rationnel[nb + 1];
-        int currentI;
-        for (currentI = 0; currentI < lesRationnels.length && nouveau.compareTo(lesRationnels[currentI]) < 0; currentI++) {
-            result[currentI] = lesRationnels[currentI];
-        }
-        result[currentI] = nouveau;
-        currentI++;
-        for (; currentI < lesRationnels.length; currentI++) {
-            result[currentI] = lesRationnels[currentI - 1];
-        }
-        return result;
+        if (nb - index >= 0) System.arraycopy(lesRationnels, index, lesRationnels, index + 1, nb - index);
+        lesRationnels[index] = nouveau;
     }
 
     static Rationnel sommeRationnels(Rationnel[] lesRationnels, int nb) {
-
+        assert nb <= lesRationnels.length;
+        return Arrays.stream(Arrays.copyOfRange(lesRationnels, 0, nb - 1)).reduce(makeRationnel(0, 1), Rationnel::somme);
     }
 }

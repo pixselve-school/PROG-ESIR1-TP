@@ -1,8 +1,37 @@
 package tp1.rationnel;
 
 import tp1.types.Rationnel;
+import tp1.util.Couple;
+import tp1.util.Outils;
 
 public class RationnelCouple implements Rationnel {
+    private final Couple<Integer, Integer> couple;
+
+    public RationnelCouple(int numerateur, int denominateur) {
+        if (numerateur == 0) {
+            this.couple = new Couple<>(0, 1);
+        } else {
+            int pgcd = Outils.pgcd(Math.abs(numerateur), Math.abs(denominateur));
+            if (pgcd <= 1) {
+                this.couple = new Couple<>(Math.abs(numerateur), Math.abs(denominateur));
+            } else {
+                this.couple = new Couple<>(Math.abs(numerateur) / pgcd, Math.abs(denominateur) / pgcd);
+            }
+            if (numerateur < 0 ^ denominateur < 0) {
+                this.couple.setFirst(-this.couple.getFirst());
+            }
+        }
+    }
+
+    public RationnelCouple(int a) {
+        this.couple = new Couple<>(a, 1);
+    }
+
+    public RationnelCouple(Rationnel r) {
+        this.couple = new Couple<>(r.getNumerateur(), r.getDenominateur());
+    }
+
+
     /**
      * comparer (Ã©galitÃ©) deux rationnels
      *
@@ -10,8 +39,9 @@ public class RationnelCouple implements Rationnel {
      * @return vrai si le rationnel this est Ã©gal au rationnel paramÃ¨tre
      */
     public boolean equals(Rationnel r) {
-        return false;
+        return r.getNumerateur() == this.getNumerateur() && r.getDenominateur() == this.getDenominateur();
     }
+
 
     /**
      * additionner deux rationnels
@@ -20,7 +50,7 @@ public class RationnelCouple implements Rationnel {
      * @return nouveau rationnel somme du rationnel this et du rationnel paramÃ¨tre
      */
     public Rationnel somme(Rationnel r) {
-        return null;
+        return new RationnelSimple(this.getNumerateur() * r.getDenominateur() + r.getNumerateur() * this.getDenominateur(), this.getDenominateur() * r.getDenominateur());
     }
 
     /**
@@ -30,7 +60,7 @@ public class RationnelCouple implements Rationnel {
      * @pre numÃ©rateur != 0
      */
     public Rationnel inverse() {
-        return null;
+        return new RationnelSimple(this.getDenominateur(), this.getNumerateur());
     }
 
     /**
@@ -39,18 +69,25 @@ public class RationnelCouple implements Rationnel {
      * @return valeur rÃ©elle du rationnel this
      */
     public double valeur() {
-        return 0;
+        return (double) this.getNumerateur() / this.getDenominateur();
+    }
+
+    /**
+     * @return reprÃ©sentation affichable d'un rationnel
+     */
+    public String toString() {
+        return this.getNumerateur() + "/" + this.getDenominateur();
     }
 
     public int getNumerateur() {
-        return 0;
+        return this.couple.getFirst();
     }
 
     public int getDenominateur() {
-        return 0;
+        return this.couple.getSecond();
     }
 
     public int compareTo(Rationnel autre) {
-        return 0;
+        return this.getNumerateur() * autre.getDenominateur() - autre.getNumerateur() * this.getDenominateur();
     }
 }

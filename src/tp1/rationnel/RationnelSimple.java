@@ -3,13 +3,30 @@ package tp1.rationnel;
 import tp1.types.Rationnel;
 import tp1.util.Outils;
 
+import java.util.Objects;
+
 public class RationnelSimple implements Rationnel {
-    private final int numerateur;
+    private int numerateur;
     private final int denominateur;
 
     public RationnelSimple(int numerateur, int denominateur) {
-        this.numerateur = numerateur;
-        this.denominateur = denominateur;
+        if (numerateur == 0) {
+            this.numerateur = 0;
+            this.denominateur = 1;
+        } else {
+            int pgcd = Outils.pgcd(Math.abs(numerateur), Math.abs(denominateur));
+            if (pgcd <= 1) {
+                this.numerateur = Math.abs(numerateur);
+                this.denominateur = Math.abs(denominateur);
+            } else {
+                this.numerateur = Math.abs(numerateur) / pgcd;
+                this.denominateur = Math.abs(denominateur) / pgcd;
+            }
+
+            if (numerateur < 0 ^ denominateur < 0) {
+                this.numerateur = - this.numerateur;
+            }
+        }
     }
 
     public RationnelSimple(int a) {
@@ -30,20 +47,9 @@ public class RationnelSimple implements Rationnel {
      * @return vrai si le rationnel this est Ã©gal au rationnel paramÃ¨tre
      */
     public boolean equals(Rationnel r) {
-        Rationnel simplifiedR = simplify(r);
-        Rationnel simplifiedThis = simplify(this);
-        return simplifiedR.getNumerateur() == simplifiedThis.getNumerateur() && simplifiedR.getDenominateur() == simplifiedThis.getDenominateur();
+        return r.getNumerateur() == this.getNumerateur() && r.getDenominateur() == this.getDenominateur();
     }
 
-    private static Rationnel simplify(Rationnel r) {
-        int pgcd = Outils.pgcd(r.getNumerateur(), r.getDenominateur());
-
-        if (pgcd <= 1) {
-            return r;
-        } else {
-            return new RationnelSimple(r.getNumerateur() / pgcd, r.getDenominateur() / pgcd);
-        }
-    }
 
     /**
      * additionner deux rationnels
@@ -52,7 +58,7 @@ public class RationnelSimple implements Rationnel {
      * @return nouveau rationnel somme du rationnel this et du rationnel paramÃ¨tre
      */
     public Rationnel somme(Rationnel r) {
-        return new RationnelSimple(this.numerateur * r.getDenominateur() + r.getNumerateur() * this.getDenominateur(), this.denominateur * r.getDenominateur());
+        return new RationnelSimple(this.getNumerateur() * r.getDenominateur() + r.getNumerateur() * this.getDenominateur(), this.getDenominateur() * r.getDenominateur());
     }
 
     /**
@@ -62,7 +68,7 @@ public class RationnelSimple implements Rationnel {
      * @pre numÃ©rateur != 0
      */
     public Rationnel inverse() {
-        return new RationnelSimple(this.denominateur, this.numerateur);
+        return new RationnelSimple(this.getDenominateur(), this.getNumerateur());
     }
 
     /**
@@ -71,14 +77,14 @@ public class RationnelSimple implements Rationnel {
      * @return valeur rÃ©elle du rationnel this
      */
     public double valeur() {
-        return (double) this.numerateur / this.denominateur;
+        return (double) this.getNumerateur() / this.getDenominateur();
     }
 
     /**
      * @return reprÃ©sentation affichable d'un rationnel
      */
     public String toString() {
-        return this.numerateur + "/" + this.denominateur;
+        return this.getNumerateur() + "/" + this.getDenominateur();
     }
 
     public int getNumerateur() {
@@ -90,6 +96,19 @@ public class RationnelSimple implements Rationnel {
     }
 
     public int compareTo(Rationnel autre) {
-        return 0;
+        return this.getNumerateur() * autre.getDenominateur() - autre.getNumerateur() * this.getDenominateur();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RationnelSimple that = (RationnelSimple) o;
+        return numerateur == that.numerateur && denominateur == that.denominateur;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(numerateur, denominateur);
     }
 }
