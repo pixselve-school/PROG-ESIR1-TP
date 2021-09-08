@@ -38,7 +38,7 @@ public class FileTableau implements File {
    * @implNote O(1)
    */
   public boolean estPleine() {
-    return amount == content.length - 1;
+    return amount == content.length;
   }
 
   /**
@@ -72,6 +72,7 @@ public class FileTableau implements File {
    * @implNote O(1)
    */
   public float getTete() {
+    assert amount <= 0 : "File vide";
     return content[0];
   }
 
