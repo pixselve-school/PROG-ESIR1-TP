@@ -4,13 +4,18 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class FileSansDecallage implements File {
-  private static class Node<T> {
+  protected static class Node<T> {
     private T element;
     private Node<T> next;
 
     public Node(T element) {
       this.element = element;
-      next = null;
+      this.next = null;
+    }
+
+    public Node(T element, Node<T> next) {
+      this.element = element;
+      this.next = next;
     }
 
     public int length() {
@@ -55,7 +60,7 @@ public class FileSansDecallage implements File {
   }
 
 
-  private Node<Float> content;
+  protected Node<Float> content;
 
   public static void main(String[] args) {
   Scanner scanner = new Scanner(System.in);

@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class FileTableau implements File {
-  private final float[] content;
-  private int amount;
+  protected final float[] content;
+  protected int amount;
 
   public static void main(String[] args) {
     Scanner scanner = new Scanner(System.in);
@@ -63,8 +63,8 @@ public class FileTableau implements File {
    * @implNote O(N)
    */
   public void supprimer() {
-    System.arraycopy(content, 1, content, 0, content.length);
-    amount--;
+    System.arraycopy(content, 1, content, 0, content.length -1);
+    amount = amount == 0 ? 0 : amount - 1;
   }
 
   /**
