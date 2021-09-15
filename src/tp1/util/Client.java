@@ -63,8 +63,8 @@ public class Client {
         System.out.println(currentR + " < " + previousR);
       }
       System.out.println(currentR.equals(previousR) ? currentR + " = " + previousR : currentR + " != " + previousR);
-
-      System.out.println(Arrays.toString(rationnels));
+      System.out.println("Les rationnels :");
+      afficher(rationnels, rationnelsCount);
       System.out.println(sommeRationnels(rationnels, rationnelsCount));
       previousR = currentR;
     } while (true);
@@ -113,8 +113,14 @@ public class Client {
     lesRationnels[index] = nouveau;
   }
 
+  /**
+   * Effectue la somme des rationnels dans une liste
+   * @param lesRationnels une liste de rationnel
+   * @param nb le nombre de rationnel dans lesRationnels
+   * @return la somme des nb premiers rationnels dans lesRationnels
+   */
   static Rationnel sommeRationnels(Rationnel[] lesRationnels, int nb) {
     assert nb <= lesRationnels.length;
-    return Arrays.stream(Arrays.copyOfRange(lesRationnels, 0, nb - 1)).reduce(makeRationnel(0, 1), Rationnel::somme);
+    return Arrays.stream(lesRationnels, 0, nb).reduce(makeRationnel(0, 1), Rationnel::somme);
   }
 }
