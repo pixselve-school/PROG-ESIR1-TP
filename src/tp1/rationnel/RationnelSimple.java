@@ -14,6 +14,7 @@ public class RationnelSimple implements Rationnel {
    * @param denominateur le dénominateur du rationnel
    */
   public RationnelSimple(int numerateur, int denominateur) {
+    assert denominateur != 0 : "denominateur != 0";
     if (numerateur == 0) {
       this.numerateur = 0;
       this.denominateur = 1;
