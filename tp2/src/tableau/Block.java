@@ -13,7 +13,7 @@ public class Block<T> implements Tableau<T> {
      * @param capacity la capacité du tableau
      */
     public Block(int capacity) {
-        assert capacity > 0;
+        assert capacity > 0 : "capacity " + capacity;
         this.elements = new Array<>(capacity);
         this.count = 0;
     }
@@ -53,7 +53,7 @@ public class Block<T> implements Tableau<T> {
      * @pre 0 <= i < this.size()
      */
     public T get(int i) {
-        assert i >= 0 && i < this.size();
+        assert i >= 0 && i < this.size() : "Access Block index " + i;
         return this.elements.get(i);
     }
 

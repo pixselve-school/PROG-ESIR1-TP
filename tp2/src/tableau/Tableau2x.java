@@ -7,7 +7,7 @@ public class Tableau2x<T> implements Tableau<T> {
   private int capacity;
 
   public Tableau2x(int capacity) {
-    assert capacity > 0;
+    assert capacity > 0 : "capacity " + capacity;
     this.elements = new Block<>(capacity);
     this.capacity = capacity;
   }
