@@ -43,7 +43,7 @@ public class NombresPremiers {
      * @return le nombre d’éléments éliminés
      */
     public static int eliminerPresents(Tableau<Integer> t1, Tableau<Integer> t2) {
-
+        return 0;
     }
 
     /**
