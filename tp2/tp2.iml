@@ -20,7 +20,7 @@
       </library>
     </orderEntry>
     <orderEntry type="module-library">
-      <library name="types">
+      <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/types.jar!/" />
         </CLASSES>
@@ -29,7 +29,7 @@
       </library>
     </orderEntry>
     <orderEntry type="module-library">
-      <library name="test">
+      <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/src/test/test.jar!/" />
         </CLASSES>

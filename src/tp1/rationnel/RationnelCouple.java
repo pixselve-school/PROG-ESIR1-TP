@@ -15,14 +15,10 @@ public class RationnelCouple implements Rationnel {
    */
   public RationnelCouple(int numerateur, int denominateur) {
     if (numerateur == 0) {
-      this.couple = new Couple<>(0, 1);
+      this.couple = new Couple<Integer, Integer>(0, 1);
     } else {
       int pgcd = Outils.pgcd(Math.abs(numerateur), Math.abs(denominateur));
-      if (pgcd <= 1) {
-        this.couple = new Couple<>(Math.abs(numerateur), Math.abs(denominateur));
-      } else {
-        this.couple = new Couple<>(Math.abs(numerateur) / pgcd, Math.abs(denominateur) / pgcd);
-      }
+      this.couple = new Couple<Integer, Integer>(Math.abs(numerateur) / pgcd, Math.abs(denominateur) / pgcd);
       if (numerateur < 0 ^ denominateur < 0) {
         this.couple.setFirst(-this.couple.getFirst());
       }
@@ -35,7 +31,7 @@ public class RationnelCouple implements Rationnel {
    * @param a un entier tel que le rationnel créée est a / 1
    */
   public RationnelCouple(int a) {
-    this.couple = new Couple<>(a, 1);
+    this.couple = new Couple<Integer, Integer>(a, 1);
   }
 
   /**
@@ -44,7 +40,7 @@ public class RationnelCouple implements Rationnel {
    * @param r le rationnel à copier
    */
   public RationnelCouple(Rationnel r) {
-    this.couple = new Couple<>(r.getNumerateur(), r.getDenominateur());
+    this.couple = new Couple<Integer, Integer>(r.getNumerateur(), r.getDenominateur());
   }
 
 
@@ -76,6 +72,7 @@ public class RationnelCouple implements Rationnel {
    * @pre numÃ©rateur != 0
    */
   public Rationnel inverse() {
+    assert this.getNumerateur() != 0;
     return new RationnelSimple(this.getDenominateur(), this.getNumerateur());
   }
 

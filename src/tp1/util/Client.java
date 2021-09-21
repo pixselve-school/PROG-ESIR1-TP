@@ -1,5 +1,6 @@
 package tp1.util;
 
+import tp1.rationnel.RationnelCouple;
 import tp1.rationnel.RationnelSimple;
 import tp1.types.Rationnel;
 
@@ -13,7 +14,7 @@ public class Client {
    * @param input un Scanner
    * @return le rationnel lu
    */
-  static Rationnel lireRationnel(Scanner input) {
+  private static Rationnel lireRationnel(Scanner input) {
     System.out.print("🔤 Numérateur");
     int numerateur = input.nextInt();
     int denominateur;
@@ -77,8 +78,15 @@ public class Client {
    * @param den le dénominateur du rationnel
    * @return le rationnel num / den
    */
-  static Rationnel makeRationnel(int num, int den) {
-    return new RationnelSimple(num, den);
+  private static Rationnel makeRationnel(int num, int den) {
+    if (Math.random() > 0.5) {
+      System.out.println("Création d'un RationnelSimple");
+      return new RationnelSimple(num, den);
+    } else {
+      System.out.println("Création d'un RationnelCouple");
+      return new RationnelCouple(num, den);
+    }
+
   }
 
   /**
@@ -87,7 +95,7 @@ public class Client {
    * @param lesRationnels une liste de rationnel
    * @param nb            le nombre de rationnels dans la liste lesRationnels
    */
-  static void afficher(Rationnel[] lesRationnels, int nb) {
+  private static void afficher(Rationnel[] lesRationnels, int nb) {
     for (int i = 0; i < nb; i++) {
       System.out.println(lesRationnels[i] + " = " + lesRationnels[i].valeur());
     }
@@ -99,8 +107,9 @@ public class Client {
    * @param nouveau       : le nouveau Rationnel a inserer
    * @param lesRationnels : le tableau de rationnel
    * @param nb            : le nombre de rationnel dans le tableau
+   * @implSpec nb < lesRationnels.length
    */
-  static void insererRationnel(Rationnel nouveau, Rationnel[] lesRationnels, int nb) {
+  public static void insererRationnel(Rationnel nouveau, Rationnel[] lesRationnels, int nb) {
     assert nb < lesRationnels.length;
     int index = 0;
     for (int i = 0; i <= nb; i++) {
@@ -115,11 +124,13 @@ public class Client {
 
   /**
    * Effectue la somme des rationnels dans une liste
+   *
    * @param lesRationnels une liste de rationnel
-   * @param nb le nombre de rationnel dans lesRationnels
+   * @param nb            le nombre de rationnel dans lesRationnels
    * @return la somme des nb premiers rationnels dans lesRationnels
+   * @implSpec nb <= lesRationnels.length
    */
-  static Rationnel sommeRationnels(Rationnel[] lesRationnels, int nb) {
+  private static Rationnel sommeRationnels(Rationnel[] lesRationnels, int nb) {
     assert nb <= lesRationnels.length;
     return Arrays.stream(lesRationnels, 0, nb).reduce(makeRationnel(0, 1), Rationnel::somme);
   }

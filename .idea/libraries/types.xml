@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="types">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/src/tp2/lib/types.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

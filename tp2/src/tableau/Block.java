@@ -87,6 +87,6 @@ public class Block<T> implements Tableau<T> {
      */
     public void pop_back() {
         assert !this.empty();
-        this.elements.set(this.count-- - 1, null);
+        this.elements.set(--this.count, null);
     }
 }

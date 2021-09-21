@@ -12,6 +12,7 @@ public class RationnelSimple implements Rationnel {
    *
    * @param numerateur   le numérateur du rationnel
    * @param denominateur le dénominateur du rationnel
+   * @implSpec denominateur != 0
    */
   public RationnelSimple(int numerateur, int denominateur) {
     assert denominateur != 0 : "denominateur != 0";
@@ -20,13 +21,8 @@ public class RationnelSimple implements Rationnel {
       this.denominateur = 1;
     } else {
       int pgcd = Outils.pgcd(Math.abs(numerateur), Math.abs(denominateur));
-      if (pgcd <= 1) {
-        this.numerateur = Math.abs(numerateur);
-        this.denominateur = Math.abs(denominateur);
-      } else {
-        this.numerateur = Math.abs(numerateur) / pgcd;
-        this.denominateur = Math.abs(denominateur) / pgcd;
-      }
+      this.numerateur = Math.abs(numerateur) / pgcd;
+      this.denominateur = Math.abs(denominateur) / pgcd;
 
       if (numerateur < 0 ^ denominateur < 0) {
         this.numerateur = -this.numerateur;
@@ -83,6 +79,7 @@ public class RationnelSimple implements Rationnel {
    * @pre numÃ©rateur != 0
    */
   public Rationnel inverse() {
+    assert this.getNumerateur() != 0;
     return new RationnelSimple(this.getDenominateur(), this.getNumerateur());
   }
 

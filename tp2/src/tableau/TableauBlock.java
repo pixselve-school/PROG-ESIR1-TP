@@ -4,17 +4,9 @@ import types.Array;
 import types.Tableau;
 
 public class TableauBlock<T> implements Tableau<T> {
-  private Array<Block<T>> elements;
   private final int blockCapacity;
+  private Array<Block<T>> elements;
   private int blockCount;
-
-  private int elementsInLastBlock() {
-    return this.elements.get(blockCount - 1).size();
-  }
-
-  private boolean lastBlockFull() {
-    return this.elements.get(blockCount - 1).full();
-  }
 
   /**
    * Création d'un tableau de blocs
@@ -41,6 +33,19 @@ public class TableauBlock<T> implements Tableau<T> {
     this.elements = new Array<>(arrayCapacity);
     this.blockCapacity = 128;
     this.elements.set(0, new Block<>(this.blockCapacity));
+    this.blockCount = 1;
+  }
+
+  private int elementsInLastBlock() {
+    return getLastBlock().size();
+  }
+
+  private Block<T> getLastBlock() {
+    return this.elements.get(blockCount - 1);
+  }
+
+  private boolean lastBlockFull() {
+    return getLastBlock().full();
   }
 
   /**
@@ -49,7 +54,7 @@ public class TableauBlock<T> implements Tableau<T> {
    * @return nombre d'éléments présents dans le tableau
    */
   public int size() {
-    return this.blockCount * this.blockCapacity + this.elementsInLastBlock();
+    return (this.blockCount - 1) * this.blockCapacity + this.elementsInLastBlock();
   }
 
   /**
@@ -58,7 +63,7 @@ public class TableauBlock<T> implements Tableau<T> {
    * @return vrai si le tableau est vide
    */
   public boolean empty() {
-    return this.size() == 0;
+    return this.elementsInLastBlock() == 0;
   }
 
   /**
@@ -108,7 +113,7 @@ public class TableauBlock<T> implements Tableau<T> {
    * @pre : ! this.full()
    */
   public void push_back(T x) {
-    if (this.elementsInLastBlock == this.blockCapacity) {
+    if (this.getLastBlock().full()) {
 //            Last block is full
       if (this.blockCount == this.elements.length()) {
 //                The array is full
@@ -120,10 +125,8 @@ public class TableauBlock<T> implements Tableau<T> {
       }
       this.elements.set(this.blockCount, new Block<>(this.blockCapacity));
       this.blockCount++;
-      this.elementsInLastBlock = 0;
     }
-    this.elements.get(this.blockCount - 1).push_back(x);
-    this.elementsInLastBlock++;
+    getLastBlock().push_back(x);
   }
 
   /**
@@ -133,6 +136,10 @@ public class TableauBlock<T> implements Tableau<T> {
    */
   public void pop_back() {
     assert !this.empty();
-    this.elements.get(this.blockCount - 1).set(this.elementsInLastBlock - 1, null);
+    if (getLastBlock().empty()) {
+      this.elements.set(this.blockCount - 1, null);
+      this.blockCount--;
+    }
+    getLastBlock().pop_back();
   }
 }
