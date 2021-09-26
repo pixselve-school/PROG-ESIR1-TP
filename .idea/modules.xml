@@ -3,7 +3,11 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/TP-PROG-ESIR1.iml" filepath="$PROJECT_DIR$/TP-PROG-ESIR1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/td1/td1.iml" filepath="$PROJECT_DIR$/td1/td1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/td2/td2.iml" filepath="$PROJECT_DIR$/td2/td2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tp1/tp1.iml" filepath="$PROJECT_DIR$/tp1/tp1.iml" />
       <module fileurl="file://$PROJECT_DIR$/tp2/tp2.iml" filepath="$PROJECT_DIR$/tp2/tp2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tp3/tp3.iml" filepath="$PROJECT_DIR$/tp3/tp3.iml" />
     </modules>
   </component>
 </project>
