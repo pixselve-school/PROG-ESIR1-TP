@@ -1,29 +1,29 @@
 import types.ABinHuffman;
 import outilsHuffman.OutilsHuffman;
 
+import java.text.MessageFormat;
+
 /**
  * Réalisation du décodage d'un texte par la méthode de Huffman
  */
 
-public class DecodageHuffman
-{
-  public static void main (String[] args)
-  {
+public class DecodageHuffman {
+  public static void main(String[] args) {
     //------------------------------------------------------------------------
     // 0. Saisir le nom du fichier à décoder (À FAIRE)
     //------------------------------------------------------------------------
-    String nomFichier;
+    String nomFichier = "tp3/resources/exemple.txt.code";
 
     //------------------------------------------------------------------------
     // 1. Lire et construire la table de fréquences (DONNÉ)
     //------------------------------------------------------------------------
-    int [] tableFrequences = OutilsHuffman.lireTableFrequences(nomFichier);
+    int[] tableFrequences = OutilsHuffman.lireTableFrequences(nomFichier);
 
     //------------------------------------------------------------------------
     // 2. Construire l'arbre de Huffman (DONNÉ)
     //------------------------------------------------------------------------
     ABinHuffman arbreHuffman =
-      OutilsHuffman.construireArbreHuffman(tableFrequences);
+        OutilsHuffman.construireArbreHuffman(tableFrequences);
 
     //------------------------------------------------------------------------
     // 2.1 afficher l'arbre de Huffman (À FAIRE)
@@ -50,18 +50,49 @@ public class DecodageHuffman
 
   /**
    * 4. décoder une chaîne (non vide) encodée par le codage de Huffman
+   *
    * @param texteCode    : chaîne de "0/1" à décoder
    * @param arbreHuffman : arbre de (dé)codage des caractères
    */
-  public static StringBuilder decoderTexte(String texteCode, ABinHuffman arbreHuffman)
-  {
+  public static StringBuilder decoderTexte(String texteCode, ABinHuffman arbreHuffman) {
+    int i = 0;
+    StringBuilder result = new StringBuilder();
+    ABinHuffman current = arbreHuffman;
+
+    while (i < texteCode.length()) {
+      char character = texteCode.charAt(i);
+      if (current.estFeuille()) {
+        result.append(current.getValeur().premier());
+        current = arbreHuffman;
+      } else {
+        if (character == '0') {
+          current = current.filsGauche();
+        } else {
+          current = current.filsDroit();
+        }
+        i++;
+      }
+
+    }
+
+    return result;
   }
 
   /**
    * 2.1 afficher un arbre de Huffman
+   *
    * @param a : arbre binaire de Huffman
    */
-  public static void afficherHuffman(ABinHuffman a)
-  {
+  public static void afficherHuffman(ABinHuffman a) {
+    afficherHuffman(a, "");
+  }
+
+  private static void afficherHuffman(ABinHuffman a, String status) {
+    if (a.estFeuille()) {
+      System.out.println(MessageFormat.format("<{0},{1}>: {2}", a.getValeur().premier(), a.getValeur().deuxieme(), status));
+    } else {
+      afficherHuffman(a.filsGauche(), status + "0");
+      afficherHuffman(a.filsDroit(), status + "1");
+    }
   }
 } // DecodageHuffman
