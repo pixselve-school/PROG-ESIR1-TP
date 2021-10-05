@@ -87,9 +87,15 @@ public class DecodageHuffman {
     afficherHuffman(a, "");
   }
 
+  /**
+   * 2.1 afficher un arbre de Huffman
+   *
+   * @param a      : arbre binaire de Huffman
+   * @param status : code actuel
+   */
   private static void afficherHuffman(ABinHuffman a, String status) {
     if (a.estFeuille()) {
-      System.out.println(MessageFormat.format("<{0},{1}>: {2}", a.getValeur().premier(), a.getValeur().deuxieme(), status));
+      System.out.printf("<%s,%s>: %s%n", a.getValeur().premier(), a.getValeur().deuxieme(), status);
     } else {
       afficherHuffman(a.filsGauche(), status + "0");
       afficherHuffman(a.filsDroit(), status + "1");
