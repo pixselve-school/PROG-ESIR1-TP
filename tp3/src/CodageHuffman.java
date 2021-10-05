@@ -74,16 +74,13 @@ public class CodageHuffman {
     // calculer la taille du fichier non codé
     // calculer la taille du fichier codé
     System.out.printf("Taille texte compressé: %s%n", texteCode.toString().length());
-    System.out.printf("Taux compression texte: %s%%%n", (1 - texteCode.length() / texte.length) * 100);
+    System.out.printf("Taux compression texte: %s%%%n", Math.round((1 - (double) texteCode.length() / (texte.length * 8)) * 100));
     System.out.printf("Taille texte fichier compressé: %s%n", OutilsHuffman.tailleFichier(nomFichier + ".code"));
-    System.out.printf("Taux compression fichier: %s%%%n", (1 - OutilsHuffman.tailleFichier(nomFichier + ".code")  / OutilsHuffman.tailleFichier(nomFichier)) * 100);
+    System.out.printf("Taux compression fichier: %s%%%n", Math.round((1 - (double) OutilsHuffman.tailleFichier(nomFichier + ".code") / OutilsHuffman.tailleFichier(nomFichier)) * 100));
 
-    System.out.println(OutilsHuffman.tailleFichier(nomFichier + ".code"));
-    System.out.println(OutilsHuffman.tailleFichier(nomFichier));
-
-
-    System.out.printf("Durée totale: %s ms%n", OutilsHuffman.getInstantPresent() - time);
     System.out.printf("Durée codage: %s ms%n", timeCode);
+    System.out.printf("Durée totale: %s ms%n", OutilsHuffman.getInstantPresent() - time);
+
 
   }
 
