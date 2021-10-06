@@ -86,7 +86,7 @@ public class DecodageHuffman {
    * @param a : arbre binaire de Huffman
    */
   public static void afficherHuffman(ABinHuffman a) {
-    afficherHuffman(a, "");
+    afficherHuffman(a, new StringBuilder());
   }
 
   /**
@@ -95,12 +95,14 @@ public class DecodageHuffman {
    * @param a      : arbre binaire de Huffman
    * @param status : code actuel
    */
-  private static void afficherHuffman(ABinHuffman a, String status) {
+  private static void afficherHuffman(ABinHuffman a, StringBuilder status) {
     if (a.estFeuille()) {
       System.out.printf("<%s,%s>: %s%n", a.getValeur().premier(), a.getValeur().deuxieme(), status);
     } else {
-      afficherHuffman(a.filsGauche(), status + "0");
-      afficherHuffman(a.filsDroit(), status + "1");
+      afficherHuffman(a.filsGauche(), status.append(0));
+      status.deleteCharAt(status.length() - 1);
+      afficherHuffman(a.filsDroit(), status.append(1));
+      status.deleteCharAt(status.length() - 1);
     }
   }
 

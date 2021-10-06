@@ -181,7 +181,7 @@ public class CodageHuffman {
    */
   public static String[] construireTableCodage(ABinHuffman abinHuff) {
     String[] result = new String[256];
-    construireTableCodage(abinHuff, "", result);
+    construireTableCodage(abinHuff, new StringBuilder(), result);
     return result;
   }
 
@@ -192,12 +192,14 @@ public class CodageHuffman {
    * @param status : code actuel
    * @param table  : table de codage
    */
-  private static void construireTableCodage(ABinHuffman a, String status, String[] table) {
+  private static void construireTableCodage(ABinHuffman a, StringBuilder status, String[] table) {
     if (a.estFeuille()) {
-      table[a.getValeur().premier()] = status;
+      table[a.getValeur().premier()] = status.toString();
     } else {
-      construireTableCodage(a.filsGauche(), status + "0", table);
-      construireTableCodage(a.filsDroit(), status + "1", table);
+      construireTableCodage(a.filsGauche(), status.append(0), table);
+      status.deleteCharAt(status.length() - 1);
+      construireTableCodage(a.filsDroit(), status.append(1), table);
+      status.deleteCharAt(status.length() - 1);
     }
   }
 
