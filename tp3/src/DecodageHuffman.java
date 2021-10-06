@@ -1,6 +1,8 @@
 import types.ABinHuffman;
 import outilsHuffman.OutilsHuffman;
 
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.text.MessageFormat;
 
 /**
@@ -8,7 +10,7 @@ import java.text.MessageFormat;
  */
 
 public class DecodageHuffman {
-  public static void main(String[] args) {
+  public static void main(String[] args) throws IOException {
     //------------------------------------------------------------------------
     // 0. Saisir le nom du fichier à décoder (À FAIRE)
     //------------------------------------------------------------------------
@@ -45,7 +47,7 @@ public class DecodageHuffman {
     // 5. Enregistrer le texte décode (DONNÉ)
     //------------------------------------------------------------------------
     System.out.println("texte décodé:\n\n" + texteDecode);
-    OutilsHuffman.enregistrerTexte(texteDecode, nomFichier + ".decode");
+    enregistrerTexte(texteDecode, nomFichier + ".decode");
   }
 
   /**
@@ -100,5 +102,13 @@ public class DecodageHuffman {
       afficherHuffman(a.filsGauche(), status + "0");
       afficherHuffman(a.filsDroit(), status + "1");
     }
+  }
+
+  public static void enregistrerTexte(StringBuilder texte, String nomFichierDecode) throws IOException {
+    OutputStream outputStream = new FileOutputStream(nomFichierDecode);
+    OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream, StandardCharsets.ISO_8859_1);
+    outputStreamWriter.write(texte.toString());
+    outputStreamWriter.close();
+
   }
 } // DecodageHuffman
