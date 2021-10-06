@@ -3,9 +3,8 @@ import types.Couple;
 import types.ListeABH;
 import outilsHuffman.OutilsHuffman;
 
-import java.text.MessageFormat;
-import java.util.Arrays;
 import java.util.Comparator;
+import java.util.ListIterator;
 
 /**
  * Réalisation du codage d'un texte par la méthode de Huffman
@@ -134,24 +133,20 @@ public class CodageHuffman {
    * @param element un ABinHuffman
    */
   protected static void addInPlace(ListeABH list, ABinHuffman element) {
-    final int size = list.size();
-    if (size == 0) {
-      list.add(element);
-      return;
-    }
-    boolean toPlace = true;
-    for (int i = 0; i < size; i++) {
-      if (toPlace && getFrequency(list.getFirst()) > getFrequency(element)) {
-        list.add(element);
-        toPlace = false;
+    ListIterator<ABinHuffman> listIterator = list.listIterator();
+    while (listIterator.hasNext()) {
+      ABinHuffman aBinHuffman = listIterator.next();
+      if (getFrequency(aBinHuffman) > getFrequency(element)) {
+        if (listIterator.hasPrevious()) {
+          listIterator.previous();
+          listIterator.add(element);
+        } else {
+          list.addFirst(element);
+        }
+        return;
       }
-      list.add(list.remove());
     }
-    if (toPlace) {
-      list.add(element);
-    }
-
-
+    list.add(element);
   }
 
   /**
