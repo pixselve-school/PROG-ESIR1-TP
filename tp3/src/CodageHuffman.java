@@ -93,7 +93,6 @@ public class CodageHuffman {
   public static int[] calculerFrequences(char[] tcar) {
     int[] result = new int[256];
     for (char c : tcar) {
-      System.out.println(c);
       result[c] += 1;
     }
     return result;
@@ -118,6 +117,11 @@ public class CodageHuffman {
     return list.getFirst();
   }
 
+  /**
+   * Récupère la fréquence d'un caractère de la racine d'un arbre Huffman
+   * @param aBinHuffman un arbre Huffman
+   * @return a fréquence d'un caractère de la racine de l'arbre
+   */
   private static Integer getFrequency(ABinHuffman aBinHuffman) {
     return aBinHuffman.getValeur().deuxieme();
   }
