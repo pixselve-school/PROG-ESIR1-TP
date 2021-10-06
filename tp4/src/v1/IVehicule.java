@@ -1,8 +1,12 @@
+package v1;
+
 /**
  * Modèle de véhicule
  */
-public interface IVehicule
-{
+public interface IVehicule {
+  int pricePerPassenger = 15;
+
+
   // déterminer la longueur d'un véhicule
   public int getLongueur();
 
