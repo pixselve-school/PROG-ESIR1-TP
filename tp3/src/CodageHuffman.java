@@ -119,6 +119,7 @@ public class CodageHuffman {
 
   /**
    * Récupère la fréquence d'un caractère de la racine d'un arbre Huffman
+   *
    * @param aBinHuffman un arbre Huffman
    * @return a fréquence d'un caractère de la racine de l'arbre
    */
@@ -138,8 +139,6 @@ public class CodageHuffman {
       list.add(element);
       return;
     }
-
-
     boolean toPlace = true;
     for (int i = 0; i < size; i++) {
       if (toPlace && getFrequency(list.getFirst()) > getFrequency(element)) {
