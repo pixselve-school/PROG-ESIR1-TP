@@ -1,13 +1,13 @@
 package v1;
 
-public class Vehicule implements IVehicule {
+public class Vehicle implements IVehicule, Cloneable {
   private final int basePrice;
   private final int pricePerLengthUnit;
   private final int length;
   private final int passengerCount;
   private final String registration;
 
-  public Vehicule(int basePrice, int pricePerLengthUnit, int length, int passengerCount, String registration) {
+  public Vehicle(int basePrice, int pricePerLengthUnit, int length, int passengerCount, String registration) {
     this.basePrice = basePrice;
     this.pricePerLengthUnit = pricePerLengthUnit;
     this.length = length;
@@ -29,5 +29,14 @@ public class Vehicule implements IVehicule {
 
   public float calculerTarif() {
     return this.basePrice + this.getLongueur() * this.pricePerLengthUnit + 15 * this.pricePerPassenger;
+  }
+
+  @Override
+  public Vehicle clone() {
+    try {
+      return (Vehicle) super.clone();
+    } catch (CloneNotSupportedException e) {
+      throw new AssertionError();
+    }
   }
 }

@@ -1,6 +1,6 @@
 package v1;
 
-public class Bus extends Vehicule {
+public class Bus extends Vehicle {
 
   public Bus(int length, int passengerCount, String registration) {
     super(200, 50, length, passengerCount, registration);
@@ -8,6 +8,6 @@ public class Bus extends Vehicule {
 
   @Override
   public String toString() {
-    return "Bus ( longueur: %d - %d passagers )".formatted(this.getLongueur(), this.getPassagers());
+    return "\uD83D\uDE8E Bus ( longueur: %d - %d passagers )".formatted(this.getLongueur(), this.getPassagers());
   }
 }
