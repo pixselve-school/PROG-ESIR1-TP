@@ -1,4 +1,4 @@
-package v2;
+package v2.vehicles;
 
 import java.util.Random;
 
@@ -16,7 +16,7 @@ public class Ambulance extends Auto {
    * @return un véhicule aléatoire
    */
   public static Ambulance random(Random random) {
-    return new Ambulance(random.nextInt(4), generateRegistration(random), random.nextBoolean());
+    return new Ambulance(random.nextInt(4), Vehicle.generateRegistration(random), random.nextBoolean());
   }
 
   @Override

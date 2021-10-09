@@ -1,14 +1,15 @@
-package v2;
+package v2.comparators;
+
+import v2.vehicles.Vehicle;
 
 import java.util.Comparator;
 
-public class ComparateurMulti implements Comparator<Vehicle> {
-  private final Comparator<Vehicle> comparator;
+public abstract class Comparateur implements Comparator<Vehicle> {
+  private final boolean natualOrder;
 
-  public ComparateurMulti(Comparator<Vehicle> comparator1, Comparator<Vehicle> comparator2) {
-    this.comparator = comparator1.thenComparing(comparator2);
+  protected Comparateur(boolean natualOrder) {
+    this.natualOrder = natualOrder;
   }
-
 
   /**
    * Compares its two arguments for order.  Returns a negative integer,
@@ -50,21 +51,9 @@ public class ComparateurMulti implements Comparator<Vehicle> {
    * @throws ClassCastException   if the arguments' types prevent them from
    *                              being compared by this comparator.
    */
-  @Override
   public int compare(Vehicle o1, Vehicle o2) {
-    return this.comparator.compare(o1, o2);
+    return this.natualOrder ? doCompare(o1, o2) : -doCompare(o1, o2);
   }
 
-  /**
-   * Returns a comparator that imposes the reverse ordering of this
-   * comparator.
-   *
-   * @return a comparator that imposes the reverse ordering of this
-   * comparator.
-   * @since 1.8
-   */
-  @Override
-  public Comparator<Vehicle> reversed() {
-    return Comparator.super.reversed();
-  }
+  protected abstract int doCompare(Vehicle o1, Vehicle o2);
 }

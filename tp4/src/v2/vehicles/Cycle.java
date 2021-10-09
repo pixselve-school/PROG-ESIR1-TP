@@ -1,4 +1,4 @@
-package v2;
+package v2.vehicles;
 
 import java.util.Random;
 

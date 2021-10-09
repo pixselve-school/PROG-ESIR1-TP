@@ -1,5 +1,7 @@
 package v2;
 
+import v2.vehicles.Vehicle;
+
 import java.util.Comparator;
 
 /**

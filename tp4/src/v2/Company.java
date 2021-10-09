@@ -1,5 +1,10 @@
 package v2;
 
+import v2.comparators.ComparateurLongueur;
+import v2.comparators.ComparateurMulti;
+import v2.comparators.ComparateurTarif;
+import v2.vehicles.Vehicle;
+
 import java.util.Comparator;
 import java.util.Random;
 
@@ -19,11 +24,11 @@ public class Company {
     System.out.println(ferry);
 
     System.out.println("Tri du Ferry selon le tarifs des véhicules (dans l'ordre décroissant)");
-    ferry.trier(new ComparateurTarif().reversed());
+    ferry.trier(new ComparateurTarif(false));
     System.out.println(ferry);
 
     System.out.println("Tri du Ferry selon la longueur des véhicules (dans l'ordre décroissant)");
-    ferry.trier((o1, o2) -> Float.compare(o2.getLongueur(), o1.getLongueur()));
+    ferry.trier(new ComparateurLongueur(false));
     System.out.println(ferry);
 
     System.out.println("Tri du Ferry selon le tarif et la longueur des véhicules");
