@@ -5,7 +5,7 @@ import v3.Tarif;
 public class AmbulancePrice extends Tarif {
   private static AmbulancePrice instance;
 
-  private AmbulancePrice(int pricePerPassenger, int basePrice, int addedPrice) {
+  private AmbulancePrice(float pricePerPassenger, int basePrice, int addedPrice) {
     super(pricePerPassenger, basePrice, addedPrice);
   }
 
@@ -14,8 +14,8 @@ public class AmbulancePrice extends Tarif {
    *
    * @return l'instance de classe
    */
-  public static AmbulancePrice createSingleton(int pricePerPassenger, int basePrice, int addedPrice) {
-    instance = new AmbulancePrice(pricePerPassenger, basePrice, addedPrice);
+  public static AmbulancePrice createSingleton() {
+    instance = new AmbulancePrice(0, 0, 0);
     return instance;
   }
 
@@ -34,7 +34,7 @@ public class AmbulancePrice extends Tarif {
    * @param vehicle le vehicule concerné
    * @return le tarif du vehicule
    */
-  public int getPrice(Vehicle vehicle) {
+  public float getPrice(Vehicle vehicle) {
     return 0;
   }
 }

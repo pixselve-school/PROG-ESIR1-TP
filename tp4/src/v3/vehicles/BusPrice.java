@@ -5,7 +5,7 @@ import v3.Tarif;
 public class BusPrice extends Tarif {
   private static BusPrice instance;
 
-  private BusPrice(int pricePerPassenger, int basePrice, int addedPrice) {
+  private BusPrice(float pricePerPassenger, int basePrice, int addedPrice) {
     super(pricePerPassenger, basePrice, addedPrice);
   }
 
@@ -14,7 +14,7 @@ public class BusPrice extends Tarif {
    *
    * @return l'instance de classe
    */
-  public static BusPrice createSingleton(int pricePerPassenger, int basePrice, int addedPrice) {
+  public static BusPrice createSingleton(float pricePerPassenger, int basePrice, int addedPrice) {
     instance = new BusPrice(pricePerPassenger, basePrice, addedPrice);
     return instance;
   }
@@ -34,7 +34,7 @@ public class BusPrice extends Tarif {
    * @param vehicle le vehicule concerné
    * @return le tarif du vehicule
    */
-  public int getPrice(Vehicle vehicle) {
+  public float getPrice(Vehicle vehicle) {
     return this.getBasePrice() + this.getPricePerPassenger() * vehicle.getPassagers() + this.getAddedPrice() * vehicle.getLongueur();
   }
 }

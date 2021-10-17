@@ -3,11 +3,11 @@ package v3;
 import v3.vehicles.Vehicle;
 
 public abstract class Tarif {
-  private int pricePerPassenger;
+  private float pricePerPassenger;
   private int basePrice;
   private int addedPrice;
 
-  protected Tarif(int pricePerPassenger, int basePrice, int addedPrice) {
+  protected Tarif(float pricePerPassenger, int basePrice, int addedPrice) {
     this.pricePerPassenger = pricePerPassenger;
     this.basePrice = basePrice;
     this.addedPrice = addedPrice;
@@ -19,9 +19,9 @@ public abstract class Tarif {
    * @param vehicle le vehicule concerné
    * @return le tarif du vehicule
    */
-  public abstract int getPrice(Vehicle vehicle);
+  public abstract float getPrice(Vehicle vehicle);
 
-  public int getPricePerPassenger() {
+  public float getPricePerPassenger() {
     return pricePerPassenger;
   }
 

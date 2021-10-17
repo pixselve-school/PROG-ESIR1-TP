@@ -5,7 +5,7 @@ import v3.Tarif;
 public class AutoToutTerrainPrice extends Tarif {
   private static AutoToutTerrainPrice instance;
 
-  private AutoToutTerrainPrice(int pricePerPassenger, int basePrice, int addedPrice) {
+  private AutoToutTerrainPrice(float pricePerPassenger, int basePrice, int addedPrice) {
     super(pricePerPassenger, basePrice, addedPrice);
   }
 
@@ -14,7 +14,7 @@ public class AutoToutTerrainPrice extends Tarif {
    *
    * @return l'instance de classe
    */
-  public static AutoToutTerrainPrice createSingleton(int pricePerPassenger, int basePrice, int addedPrice) {
+  public static AutoToutTerrainPrice createSingleton(float pricePerPassenger, int basePrice, int addedPrice) {
     instance = new AutoToutTerrainPrice(pricePerPassenger, basePrice, addedPrice);
     return instance;
   }
@@ -34,7 +34,7 @@ public class AutoToutTerrainPrice extends Tarif {
    * @param vehicle le vehicule concerné
    * @return le tarif du vehicule
    */
-  public int getPrice(Vehicle vehicle) {
+  public float getPrice(Vehicle vehicle) {
     return this.getBasePrice() + this.getPricePerPassenger() * vehicle.getPassagers();
   }
 }

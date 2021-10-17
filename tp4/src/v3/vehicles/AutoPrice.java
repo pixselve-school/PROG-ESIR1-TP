@@ -5,7 +5,7 @@ import v3.Tarif;
 public class AutoPrice extends Tarif {
   private static AutoPrice instance;
 
-  private AutoPrice(int pricePerPassenger, int basePrice, int addedPrice) {
+  private AutoPrice(float pricePerPassenger, int basePrice, int addedPrice) {
     super(pricePerPassenger, basePrice, addedPrice);
   }
 
@@ -14,7 +14,7 @@ public class AutoPrice extends Tarif {
    *
    * @return l'instance de classe
    */
-  public static AutoPrice createSingleton(int pricePerPassenger, int basePrice, int addedPrice) {
+  public static AutoPrice createSingleton(float pricePerPassenger, int basePrice, int addedPrice) {
     instance = new AutoPrice(pricePerPassenger, basePrice, addedPrice);
     return instance;
   }
@@ -34,7 +34,7 @@ public class AutoPrice extends Tarif {
    * @param vehicle le vehicule concerné
    * @return le tarif du vehicule
    */
-  public int getPrice(Vehicle vehicle) {
+  public float getPrice(Vehicle vehicle) {
     return this.getBasePrice() + this.getPricePerPassenger() * vehicle.getPassagers();
   }
 }

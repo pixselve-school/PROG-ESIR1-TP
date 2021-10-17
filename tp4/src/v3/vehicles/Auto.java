@@ -3,6 +3,10 @@ package v3.vehicles;
 import java.util.Random;
 
 public class Auto extends Vehicle {
+  public boolean isAllTerrain() {
+    return allTerrain;
+  }
+
   private final boolean allTerrain;
 
   public Auto(int passengerCount, String registration, boolean allTerrain) {
