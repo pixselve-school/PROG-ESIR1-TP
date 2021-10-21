@@ -10,7 +10,7 @@ public class Auto extends Vehicle {
   private final boolean allTerrain;
 
   public Auto(int passengerCount, String registration, boolean allTerrain) {
-    super(allTerrain ? 350 : 100, 0, 2, passengerCount, registration);
+    super(2, passengerCount, registration);
     this.allTerrain = allTerrain;
   }
 
@@ -25,7 +25,7 @@ public class Auto extends Vehicle {
    * @param random une classe random
    * @return un véhicule aléatoire
    */
-  public static Auto random(Random random) {
-    return new Auto(random.nextInt(4), generateRegistration(random), random.nextBoolean());
+  public static Auto random(Random random, String registration) {
+    return new Auto(random.nextInt(4), registration, random.nextBoolean());
   }
 }

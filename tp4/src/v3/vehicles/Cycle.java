@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class Cycle extends Vehicle {
   public Cycle(int passengerCount, String registration) {
-    super(20, 0, 1, passengerCount, registration);
+    super( 1, passengerCount, registration);
     assert passengerCount <= 1 : "Un cycle ne peut transporter qu’une personne";
 
   }
@@ -18,7 +18,7 @@ public class Cycle extends Vehicle {
    * @param random une classe random
    * @return un véhicule aléatoire
    */
-  public static Cycle random(Random random) {
-    return new Cycle(random.nextInt(2), generateRegistration(random));
+  public static Cycle random(Random random, String registration) {
+    return new Cycle(random.nextInt(2), registration);
   }
 }

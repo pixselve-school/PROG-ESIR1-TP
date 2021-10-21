@@ -1,5 +1,6 @@
 package v3;
 
+import v3.comparators.VehiclePrice;
 import v3.vehicles.Vehicle;
 
 import java.util.Comparator;
@@ -94,8 +95,8 @@ public class Ferry {
    *
    * @return le tarif de l'ensemble des véhicules présents dans le ferry
    */
-  public float calculerTarif() {
-    return this.vehicles.stream().map(Vehicle::calculerTarif).reduce(0.0F, Float::sum);
+  public float calculerTarif(VehiclePrice getVehiclePrice) {
+    return this.vehicles.stream().map(getVehiclePrice::getVehiclePrice).reduce(0.0F, Float::sum);
   }
 
   /**
@@ -103,8 +104,8 @@ public class Ferry {
    *
    * @return la représentation affichable du ferry
    */
-  public String toString() {
-    StringBuilder result = new StringBuilder("⎯ ⛴ Ferry ⎯\n☑️ Longueur disponible: %s\n☑️ Nombre de place disponible: %s\n️☑️ Tarif total des véhicules: %s€\n☑️ Véhicules:\n".formatted(this.getAvailableLength(), this.getAvailablePassengers(), this.calculerTarif()));
+  public String toString(VehiclePrice getVehiclePrice) {
+    StringBuilder result = new StringBuilder("⎯ ⛴ Ferry ⎯\n☑️ Longueur disponible: %s\n☑️ Nombre de place disponible: %s\n️☑️ Tarif total des véhicules: %s€\n☑️ Véhicules:\n".formatted(this.getAvailableLength(), this.getAvailablePassengers(), this.calculerTarif(getVehiclePrice)));
     for (Vehicle vehicle : this.vehicles) {
       result.append(" ").append(vehicle.toString()).append("\n");
     }
