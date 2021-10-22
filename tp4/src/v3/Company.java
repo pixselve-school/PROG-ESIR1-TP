@@ -79,9 +79,9 @@ public class Company {
       case "Ambulance" -> registrationToTarif.put(vehicle.getImmatriculation(), AmbulancePrice.getInstance());
       case "Auto" -> {
         if (((Auto) vehicle).isAllTerrain()) {
-          registrationToTarif.put(vehicle.getImmatriculation(), AutoPrice.getInstance());
-        } else {
           registrationToTarif.put(vehicle.getImmatriculation(), AutoToutTerrainPrice.getInstance());
+        } else {
+          registrationToTarif.put(vehicle.getImmatriculation(), AutoPrice.getInstance());
         }
       }
       case "Bus" -> registrationToTarif.put(vehicle.getImmatriculation(), BusPrice.getInstance());
