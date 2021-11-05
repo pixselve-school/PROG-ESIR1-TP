@@ -2,7 +2,7 @@ package v3.vehicles;
 
 import java.util.Random;
 
-public class Vehicle implements IVehicule, Cloneable {
+public abstract class Vehicle implements IVehicule, Cloneable {
 
   private final int length;
   private final int passengerCount;
